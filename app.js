@@ -84,6 +84,36 @@ await Blog.create({
     })
 
 })
+// UPDATE BLOG API
+app.patch("/blogs/:id", async (req,res)=>{
+    const id=req.params.id
+    const title=req.body.title
+    const subTitle=req.body.subTitle
+    const description=req.body.description
+
+
+    const blog= await Blog.findByIdAndUpdate(id,{
+        title:title,
+        subTitle:subTitle,
+        description:description
+    })
+    res.status(200).json({
+        message: "blog is updated succesfully"
+
+
+    })
+
+    })
+
+    //delete blog api
+    app.delete("/blogs/:id", async(req,res)=>{
+        const id=req.params.id
+        await Blog.findByIdAndDelete(id)
+        res.status(200).json({
+            message:"blog deleted succesfully"
+        })
+    })
+
 app.listen(3000,()=>{
     console.log("server started on port 3000...")
 })
